@@ -11,7 +11,7 @@ router.post('/', function(req, res, next) {
     // Send data to arduino or python code
     client.publish('arduino/room/temp', temp)
 
-    client.end()
+    //client.end()
 });
 
 module.exports = router;

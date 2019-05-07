@@ -12,21 +12,27 @@ class App extends Component {
   state = {
     textfieldTemp: '',
     motorSwitch: true,
+    motorStatus: null,
     outdoorTemperature: null,
     roomTemperature: null,
   }
 
   componentDidMount(){
-    if(!!navigator.geolocation){
+    /*if(!!navigator.geolocation){
       // geolocation supported!!
-
       navigator.geolocation.getCurrentPosition(position => this.getOutdoorTemp(position, this.handleRetriveTemp))
 
     } else{
+	console.log('fac')  
       // geolocation not supported
 
       // May be ask for name of city
-    }
+    }*/
+    
+    (() => {
+	this.getOutdoorTemp(this.handleRetriveTemp)
+    })();
+    
 
     ((setRoomTemp) =>{
       axios.get('/sensorTemp')
@@ -37,17 +43,28 @@ class App extends Component {
       .catch(function (error) {
         console.log(error);
       })
-    })((temp => this.setState({roomTemperature: temp})))
-
+    })((temp => this.setState({...this.state, roomTemperature: temp})))
   }
 
-  getOutdoorTemp = (position, changeState) => {
-    const coordinate = {
+  componentWillUpdate(){
+  	((setMotorSatus) =>{
+      axios.get('/motorStatus')
+      .then(function (response) {
+        setMotorSatus(response.data.motorStatus)
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+    })((status => this.setState({...this.state, motorStatus: Boolean(status)})))
+  }
+
+  getOutdoorTemp = (changeState) => {
+    /*const coordinate = {
       lat: position.coords.latitude,
       lon: position.coords.longitude,
-    }
+    }*/
 
-    axios.get(`http://api.openweathermap.org/data/2.5/weather?lat=${coordinate.lat}&lon=${coordinate.lon}&units=metric&appid=f9eb00dc56072cc30fec3527de635026`)
+    axios.get(`http://api.openweathermap.org/data/2.5/weather?lat=-37.813629&lon=144.963058&units=metric&appid=f9eb00dc56072cc30fec3527de635026`)
     .then(function (response) {
       console.log(response);
       changeState(response.data.main.temp);
@@ -127,7 +144,7 @@ class App extends Component {
                 <img src={Motor} alt="Electric Motor" className="img-fluid rounded"/>
                 <div id="motor-status" className="mt-3">
                   <h4 className="m-0 d-inline-block">Status:</h4>
-                  <p className="m-0 d-inline-block ml-2">ON</p>
+                  <p className="m-0 d-inline-block ml-2">{(this.state.motorStatus)?"ON":"OFF"}</p>
                 </div>
                 <div className="custom-control custom-switch mt-3">
                   <input type="checkbox" className="custom-control-input" id="customSwitch1" onChange={this.handleSwitch} defaultChecked={true}/>

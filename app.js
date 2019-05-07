@@ -8,26 +8,33 @@ var mqtt = require('mqtt')
 
 /* Global variable - evil */
 roomTemperature = null
+motorStatus = null
 
 var indexRouter = require('./routes/index');
 var tempRounter = require('./routes/sensorTemp');
 var roomTempRouter = require('./routes/roomTemp');
 var motorSwitchRouter = require('./routes/motorSwitch');
+var motorStatusRouter = require('./routes/motorStatus');
 
 var app = express();
 
 app.use(cors());
 
 //MQTT handler
-var client = mqtt.connect('mqtt://localhost')
+client = mqtt.connect('mqtt://localhost')
 
 client.on('connect', function(){
   client.subscribe('server/room/temp');
+  client.subscribe('server/room/motor/status'); 
 })
 
 client.on('message', function(topic, message){
   console.log(topic.toString() + " " + message.toString())
-  roomTemperature = Number(message.toString())
+  if(topic.toString() === "server/room/temp"){
+  	roomTemperature = Number(message.toString())
+  } else if (topic.toString() === "server/room/motor/status"){
+  	motorStatus = Number(message.toString())
+  }	
 })
 
 // view engine setup
@@ -44,6 +51,7 @@ app.use('/', indexRouter);
 app.use('/sensorTemp', tempRounter);
 app.use('/roomTemp', roomTempRouter);
 app.use('/motor', motorSwitchRouter);
+app.use('/motorStatus', motorStatusRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

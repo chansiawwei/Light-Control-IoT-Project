@@ -11,7 +11,7 @@ router.post('/', function(req, res, next) {
     // Send data to arduino or python code
     client.publish('arduino/motor/enable', motorEnabled)
 
-    client.end()
+    //client.end()
 
 });
 

@@ -3,9 +3,7 @@ var router = express.Router();
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  // Send the temperature grab from arduino using a global variable
-  client.publish('arduino/room/get')
-  res.send({roomTemperature: roomTemperature});
+  res.send({motorStatus: motorStatus});
 });
 
 module.exports = router;
