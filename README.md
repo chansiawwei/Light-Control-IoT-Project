@@ -14,3 +14,6 @@ The Raspberry Pi 3 will be running an Express server and Mosquitto MQTT server a
 ## Client 1: Reading Serial Input and publishing to server
 
 1. `cd` to the directory where the python code is, and run `python ` and the name of the file.
+
+The link of the Temperature Fan Project working is below:
+https://www.youtube.com/watch?v=rOVgyDE_at8
