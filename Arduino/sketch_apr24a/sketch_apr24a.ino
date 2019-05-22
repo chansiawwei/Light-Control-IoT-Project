@@ -40,7 +40,7 @@ if (topic.equals("sTemp"))
 {
   Serial.print("TEMPERATURE:");
   Serial.print(cel);
-  Serial.print(";");
+    Serial.print(";");
   Serial.println();
   str = "";
   topic = "";
@@ -112,4 +112,3 @@ Serial.println();
 
 */
 }
-

@@ -29,10 +29,43 @@ def readSerialInput():
         value = valueStr[0].split(':') # separate arribute and value
         print(value)
         if len(value) == 2:
-            if value[0] == 'TEMPERATURE':
+            if value[0] == 'SENSOR':
                 print(value[1])
                 temp = value[1]
                 client.publish('server/room/temp', temp)
+            if value[0] == 'MOTOR':
+                print(value[1])
+                status = value[1]
+                client.publish('server/room/motor/status', status)
+				
+				
+def readSerialInput2():
+    # TODO: Implement read serial input from arduino and return a number 
+    Str = ser.readline() 
+    if Str != "":
+        valueStr = Str.split(';') # get end of each command
+        value = valueStr[0].split(':') # separate arribute and value
+        print(value)
+        if len(value) == 2:
+            if value[0] == 'SENSOR':
+                print(value[1])
+                temp = value[1]
+                client.publish('server/room/temp', temp)
+				
+				 if value[0] == 'RED':
+                print(value[1])
+                temp = value[1]
+                client.publish('server/room/temp', temp)
+				
+				 if value[0] == 'GREEN':
+                print(value[1])
+                temp = value[1]
+                client.publish('server/room/temp', temp)
+				
+				 if value[0] == 'BLUE':
+                print(value[1])
+                temp = value[1]
+                client.publish('server/room/temp', temp) 	
             if value[0] == 'MOTOR':
                 print(value[1])
                 status = value[1]

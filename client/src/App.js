@@ -2,9 +2,13 @@ import React, { Component } from 'react';
 import axios from 'axios'
 import qs from 'qs'
 
+import color from './color.png'
+import light from './light.jpg'
+import daynight from './daynight.jpg'
 import LM35 from './lm35.jpg'
 import Motor from './motor.jpg'
 import Outdoor from './tempOutdoor.png'
+
 import './App.css';
 
 class App extends Component {
@@ -15,6 +19,7 @@ class App extends Component {
     motorStatus: null,
     outdoorTemperature: null,
     roomTemperature: null,
+    
   }
 
   componentDidMount(){
@@ -83,6 +88,7 @@ class App extends Component {
     this.setState({ ...this.state, textfieldTemp: event.target.value})
   }
 
+
   handleTempSet = () => {
     // Temperature submitted
     const temperature = Number(this.state.textfieldTemp)
@@ -117,7 +123,7 @@ class App extends Component {
         <header>
           <nav className="navbar navbar-light bg-dark">
             <a className="navbar-brand text-white mx-auto " href="#">
-              Temparature IoT
+              Light Control IOT
             </a>
           </nav>
         </header>
@@ -125,45 +131,48 @@ class App extends Component {
           <div className="container mt-5">
             <div className="row">
               <div className="col-md-3 bg-light p-4">
-                  <h3 className="mb-4">Room Temperature</h3>
-                  <img src={LM35} alt="Temperature Sensor" className="img-fluid rounded"/>
+                  <h3 className="mb-4">Day or Night</h3>
+                  <img src={daynight} alt="Temperature Sensor" className="img-fluid rounded"/>
                   {
                     (this.state.roomTemperature) ? (
                       <h4 className="mt-3">{this.state.roomTemperature}&#176;C</h4>
                     ) : (
+                    
                       <div class="spinner-border mt-3" role="status">
+                     
                         <span class="sr-only">Loading...</span>
                       </div>
                     )
                   }
-                  <input className="form-control mt-3" type="text" name="roomTemp" placeholder="20&#176;C" onChange={this.handleTempChange}></input>
-                  <button type="button" className="btn btn-primary mt-3" onClick={this.handleTempSet}>Set</button>
+                  
+                 
+                <p> Date/Time: <span>{
+  
+                	}</span></p>
+                
               </div>
               <div className="col-md-3 offset-md-1 bg-light p-4">
-                <h3 className="mb-4">Electric Motor</h3>
-                <img src={Motor} alt="Electric Motor" className="img-fluid rounded"/>
+                <h3 className="mb-4">Light Bulb</h3>
+                <img src={light} alt="Electric Motor" className="img-fluid rounded"/>
                 <div id="motor-status" className="mt-3">
                   <h4 className="m-0 d-inline-block">Status:</h4>
                   <p className="m-0 d-inline-block ml-2">{(this.state.motorStatus)?"ON":"OFF"}</p>
                 </div>
                 <div className="custom-control custom-switch mt-3">
                   <input type="checkbox" className="custom-control-input" id="customSwitch1" onChange={this.handleSwitch} defaultChecked={true}/>
-                  <label className="custom-control-label" for="customSwitch1">Motor Enable</label>
+                  <label className="custom-control-label" for="customSwitch1">Light Enable</label>
                 </div>
               </div>
               <div className="col-md-3 offset-md-1 bg-light p-4">
-                <h3 className="mb-4">Temperature Outdoor</h3>
+                <h3 className="mb-4">Color Mixing</h3>
                 <p className="lead">From where?</p>
-                <img src={Outdoor} alt="Temperature Sensor" className="img-fluid rounded"/>
-                {
-                  (this.state.outdoorTemperature) ? (
-                    <h4 className="mt-3">{this.state.outdoorTemperature}&#176;C</h4>
-                  ) : (
-                    <div class="spinner-border mt-3" role="status">
-                      <span class="sr-only">Loading...</span>
-                    </div>
-                  )
-                }
+                <img src={color} alt="Temperature Sensor" className="img-fluid rounded"/>
+                
+                  <input className="form-control mt-3" type="text" name="roomTemp" placeholder="Red" onChange={this.handleTempChange}></input>
+                   <input className="form-control mt-3" type="text" name="roomTemp" placeholder="Green" onChange={this.handleTempChange}></input>
+                    <input className="form-control mt-3" type="text" name="roomTemp" placeholder="Blue" onChange={this.handleTempChange}></input>
+                  <button type="button" className="btn btn-primary mt-3" onClick={this.handleTempSet}>Set</button>
+               
               </div>
             </div>
           </div>
