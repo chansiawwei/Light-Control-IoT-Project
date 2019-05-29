@@ -1,4 +1,4 @@
-# Temp_IoT
+# Light Controll IoT
 A simulated smart air conditioner using Arduino and Raspberry Pi.
 
 The Raspberry Pi 3 will be running an Express server and Mosquitto MQTT server allowing interaction between the python and the nodejs code. The python script will be responsible in retrieving data from arduino using serial port and publish it to the webserver using MQTT. The Express server will act both as an MQTT client and webserver, upon a message it will store in a variable on request, send it to the client. In addition, the webserver will also publish to the python code acting as a client to send data to the arduino to activate or deactivate an electric motor.
@@ -16,4 +16,3 @@ The Raspberry Pi 3 will be running an Express server and Mosquitto MQTT server a
 1. `cd` to the directory where the python code is, and run `python ` and the name of the file.
 
 The link of the Temperature Fan Project working is below:
-https://www.youtube.com/watch?v=rOVgyDE_at8
