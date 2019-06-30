@@ -15,3 +15,11 @@ The Raspberry Pi 3 will be running an Express server and Mosquitto MQTT server a
 
 1. `cd` to the directory where the python code is, and run `python ` and the name of the file.
 
+
+
+
+
+
+## Image of Webpage that control the smart light
+
+![alt text](https://github.com/chansiawwei/Light-Control-IoT-Project/blob/master/Webpage.PNG)
